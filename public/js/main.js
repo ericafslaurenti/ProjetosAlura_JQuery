@@ -5,6 +5,7 @@ $(function(){
     atualizaTamanhoFrase();
     inicializaContadores();
     inicializaCronometro();
+    inicializaMarcadores();
     $("#botao-reiniciar").click(reiniciaJogo);
 });
 
@@ -37,9 +38,27 @@ function inicializaCronometro(){
             if(tempoRestante < 1){
                 campo.attr("disabled",true);//o atributo disabled n possui valor, só queremos colocá-lo na tag Temos q informar isso passando o valor true p/ a fç, "habilitando" assim o atributo
                 clearInterval(cronometroID);//qdo tempo <0, dá um clearInterval
+                campo.toggleClass("campo-desativado");
             }
         },1000);
     });
+}
+
+function inicializaMarcadores(){
+    var frase = $(".frase").text()
+campo.on("input", function(){
+    var digitado = campo.val();
+    var comparavel = frase.substr(0,digitado.length);
+    console.log("Digitado:" + digitado);
+    console.log("Frase C.:" + comparavel);
+    if(digitado == comparavel){
+       campo.addClass("borda-verde");
+       campo.removeClass("borda-vermelha");
+    }else{
+        campo.addClass("borda-vermelha");
+        campo.removeClass("borda-verde");
+    }
+});
 }
 
 function reiniciaJogo(){
@@ -49,6 +68,9 @@ function reiniciaJogo(){
     $("#contador-caracteres").text("0");
     $("#tempo-digitacao").text(tempoInicial);
     inicializaCronometro();
+    campo.toggleClass("campo-desativado");
+    campo.removeClass("borda-vermelha");
+    campo.removeClass("borda-verde");
 }
 
 //a fç one só funciona no evento 1x, diferente da on q fica o tempo todo escutando o evento.
@@ -59,3 +81,5 @@ function reiniciaJogo(){
 //campo.val(""); zera o meu campo
 //$("#contador-caracteres").text("0"); zera i campo de caracteres
 //$(document).ready(function() fç q espera todo carregamento da pág e depois executa o q está dentro dela. Atalho dessa fuç: $(function()
+//addClass aciciona uma classe
+//toggleClass() adiciona e remove classes
