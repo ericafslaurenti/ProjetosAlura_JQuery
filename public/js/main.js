@@ -36,12 +36,18 @@ function inicializaCronometro(){
         //console.log(tempoRestante);
             $("#tempo-digitacao").text(tempoRestante); //vai subtrair de 1 e atualizar o valor do tempo restante
             if(tempoRestante < 1){
-                campo.attr("disabled",true);//o atributo disabled n possui valor, só queremos colocá-lo na tag Temos q informar isso passando o valor true p/ a fç, "habilitando" assim o atributo
+
                 clearInterval(cronometroID);//qdo tempo <0, dá um clearInterval
-                campo.toggleClass("campo-desativado");
+				finalizaJogo();
             }
         },1000);
     });
+}
+
+function finalizaJogo(){
+    campo.attr("disabled",true);//o atributo disabled n possui valor, só queremos colocá-lo na tag Temos q informar isso passando o valor true p/ a fç, "habilitando" assim o atributo
+    campo.toggleClass("campo-desativado");
+    inserePlacar();
 }
 
 function inicializaMarcadores(){
@@ -59,6 +65,11 @@ campo.on("input", function(){
         campo.removeClass("borda-verde");
     }
 });
+}
+
+function inserePlacar(){
+    var tabela = $("placar").find("tbody");
+    console.log(tabela);
 }
 
 function reiniciaJogo(){
