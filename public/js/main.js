@@ -68,9 +68,24 @@ campo.on("input", function(){
 }
 
 function inserePlacar(){
-    var tabela = $("placar").find("tbody");
-    console.log(tabela);
+    var corpoTabela = $(".placar").find("tbody");
+    var usuario = "Erica";
+    var numPalavras = $("#contador-palavras").text();
+    var botaoRemover = "<a href='=#'><i class='small material-icons'>delete</i></a>";
+    var linha = "<tr>"+
+                    "<td>"+ usuario + "</td>"+
+                    "<td>"+ numPalavras + "</td>"+
+                    "<td>"+ botaoRemover + "</td>"+
+
+                "</tr>";
+
+    corpoTabela.prepend(linha);
 }
+
+$(".botao-remover").click(function(event){
+    event.preventDefault();
+    $(this).parent().parent().remove();
+});
 
 function reiniciaJogo(){
     campo.attr("disabled", false);
@@ -94,3 +109,5 @@ function reiniciaJogo(){
 //$(document).ready(function() fç q espera todo carregamento da pág e depois executa o q está dentro dela. Atalho dessa fuç: $(function()
 //addClass aciciona uma classe
 //toggleClass() adiciona e remove classes
+//append adiciona depois e a prepend antes do conteúdo tbody
+//a tag <a> te direciona p/ um link ou id na página
