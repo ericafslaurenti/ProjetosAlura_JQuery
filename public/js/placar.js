@@ -1,3 +1,5 @@
+$("#botao-placar").click(mostraPlacar);
+
 function inserePlacar(){
     var corpoTabela = $(".placar").find("tbody");
     var usuario = "Erica";
@@ -7,6 +9,16 @@ function inserePlacar(){
     linha.find(".botao-remover").click(removeLinha);
 
     corpoTabela.prepend(linha);
+    $(".placar").slideDown(500);
+    scrollPlacar();
+}
+
+function scrollPlacar(){
+    var posicaoPlacar = $(".placar").offset().top;
+    $("html, body").animate(
+    {
+        scrollTop: posicaoPlacar+"px"
+    },1000);
 }
 
 function novaLinha(usuario,palavras){
@@ -31,5 +43,18 @@ function novaLinha(usuario,palavras){
 
 function removeLinha(){
     event.preventDefault();
-    $(this).parent().parent().remove();
+    var linha = $(this).parent().parent();
+    linha.fadeOut(1000);
+    setTimeout(function(){
+        linha.remove();
+    },1000);
+}//n esquecer de remover o fadeOut
+
+function mostraPlacar(){
+    $(".placar").stop().slideToggle(600);
 }
+
+//.show - fç q mostra | .hide - oculta | .toggle - faz as 2 coisas
+//slideDown tem a mesma funcionalidade q a fç show, mas realiza a transição de uma maneira mais suave | slideUp é o contrário do slideDow | slideToggle faz as 2 coisas
+//fadeOut faz com q o elemento desapareça da tela | fadeIn faz o contrário e o fadeToggle faz as 2 coisas.
+//.stop - fç q pára o q estava fazendo no momento e dá sequencia a próxima
