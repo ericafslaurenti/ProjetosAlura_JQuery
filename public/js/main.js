@@ -55,8 +55,7 @@ function inicializaMarcadores(){
 campo.on("input", function(){
     var digitado = campo.val();
     var comparavel = frase.substr(0,digitado.length);
-    console.log("Digitado:" + digitado);
-    console.log("Frase C.:" + comparavel);
+
     if(digitado == comparavel){
        campo.addClass("borda-verde");
        campo.removeClass("borda-vermelha");
@@ -66,26 +65,6 @@ campo.on("input", function(){
     }
 });
 }
-
-function inserePlacar(){
-    var corpoTabela = $(".placar").find("tbody");
-    var usuario = "Erica";
-    var numPalavras = $("#contador-palavras").text();
-    var botaoRemover = "<a href='=#'><i class='small material-icons'>delete</i></a>";
-    var linha = "<tr>"+
-                    "<td>"+ usuario + "</td>"+
-                    "<td>"+ numPalavras + "</td>"+
-                    "<td>"+ botaoRemover + "</td>"+
-
-                "</tr>";
-
-    corpoTabela.prepend(linha);
-}
-
-$(".botao-remover").click(function(event){
-    event.preventDefault();
-    $(this).parent().parent().remove();
-});
 
 function reiniciaJogo(){
     campo.attr("disabled", false);
