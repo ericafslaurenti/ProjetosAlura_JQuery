@@ -54,7 +54,42 @@ function mostraPlacar(){
     $(".placar").stop().slideToggle(600);
 }
 
+$("#botao-sync").click(sincronizaPlacar);
+
+function sincronizaPlacar(){
+    var placar = [];
+    var linhas = $("tbody>tr");
+
+    linhas.each(function(){
+        var usuario = $(this).find("td:nth-child(1)").text();
+        var palavras = $(this).find("td:nth-child(2)").text();
+
+        var score = {
+            usuario: usuario,
+            pontos: palavras
+        };
+
+        placar.push(score);
+    });
+    var dados = {
+        placar: placar
+    };
+    $.post("http://localhost:3000/placar", dados,function(){
+        console.log("Salvou o placar no servidor");
+    })
+}
+
+function atualizaPlacar(){
+    $.get("http://localhost:3000/placar", function(data){
+        $(data).each(function(){
+            var linha = novaLinha(this.usuario, this.pontos);
+            linha.find(".botao-remover").click(removeLinha);
+            $("tbody").append(linha);
+        })
+    });
+}
 //.show - fç q mostra | .hide - oculta | .toggle - faz as 2 coisas
 //slideDown tem a mesma funcionalidade q a fç show, mas realiza a transição de uma maneira mais suave | slideUp é o contrário do slideDow | slideToggle faz as 2 coisas
 //fadeOut faz com q o elemento desapareça da tela | fadeIn faz o contrário e o fadeToggle faz as 2 coisas.
 //.stop - fç q pára o q estava fazendo no momento e dá sequencia a próxima
+//pra cada data que eu recebo .each eu quero salvar 1 linha

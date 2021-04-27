@@ -45,4 +45,8 @@ body {
 #frase-id{
     width: 40px;
 }
+
+#botao-sync{
+    float: right;
+}
 /*para que o espaço da barra de rolagem já venha na página*/
