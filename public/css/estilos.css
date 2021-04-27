@@ -31,4 +31,18 @@
 
 body {
     overflow: scroll;
-} /*para que o espaço da barra de rolagem já venha na página*/
+}
+
+#erro{
+    color: red;
+    display: none;
+}
+
+#spinner{
+    display: none;
+}
+
+#frase-id{
+    width: 40px;
+}
+/*para que o espaço da barra de rolagem já venha na página*/
