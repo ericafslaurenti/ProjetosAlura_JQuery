@@ -2,7 +2,7 @@ $("#botao-placar").click(mostraPlacar);
 
 function inserePlacar(){
     var corpoTabela = $(".placar").find("tbody");
-    var usuario = "Erica";
+    var usuario = $("#usuarios").val();
     var numPalavras = $("#contador-palavras").text();
     
     var linha = novaLinha(usuario,numPalavras);
@@ -74,10 +74,17 @@ function sincronizaPlacar(){
     var dados = {
         placar: placar
     };
-    $.post("http://localhost:3000/placar", dados,function(){
-        console.log("Salvou o placar no servidor");
-    })
-}
+
+    $.post("http://localhost:3000/placar", dados , function() {
+        console.log("Placar sincronizado com sucesso");
+        $(".tooltip").tooltipster("open"); 
+    }).fail(function(){
+        $(".tooltip").tooltipster("open").tooltipster("content", "Falha ao sincronizar"); 
+    }).always(function(){ //novo
+        setTimeout(function() {
+        $(".tooltip").tooltipster("close"); 
+    }, 1200);
+    });
 
 function atualizaPlacar(){
     $.get("http://localhost:3000/placar", function(data){
@@ -92,4 +99,4 @@ function atualizaPlacar(){
 //slideDown tem a mesma funcionalidade q a fç show, mas realiza a transição de uma maneira mais suave | slideUp é o contrário do slideDow | slideToggle faz as 2 coisas
 //fadeOut faz com q o elemento desapareça da tela | fadeIn faz o contrário e o fadeToggle faz as 2 coisas.
 //.stop - fç q pára o q estava fazendo no momento e dá sequencia a próxima
-//pra cada data que eu recebo .each eu quero salvar 1 linha
+//pra cada data que eu recebo .each eu quero salvar 1 linha.

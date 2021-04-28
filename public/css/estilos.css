@@ -49,4 +49,17 @@ body {
 #botao-sync{
     float: right;
 }
+
+.select-usuarios{
+    display: inline-block;
+}
+
+.selectize-input {
+    width: 150px;
+    vertical-align: middle;
+}
+
+#usuarios{
+    display: block;
+}
 /*para que o espaço da barra de rolagem já venha na página*/
